@@ -1,21 +1,23 @@
-import { createRouter, createWebHistory } from "vue-router";
-import dashboard from "@/views/dashboard.vue";
-import buku from "@/views/buku.vue";
-import fasilitas from "@/views/fasilitas.vue";
-import karyawan from "@/views/karyawan.vue";
-import login from "@/views/login.vue";
-import register from "@/views/register.vue";
+import { createRouter, createWebHistory } from 'vue-router';
+import dashboard from '@/views/dashboard.vue';
+// import Books from '@/views/Books.vue';
+// import Employees from '@/views/Employees.vue';
+// import Students from '@/views/Students.vue';
+// import Facilities from '@/views/Facilities.vue';
+// import Orders from '@/views/Orders.vue';
 
 const routes = [
-  { path: '/', name: 'Dashboard', component: dashboard },
-  { path: '/buku', name: 'Buku', component: buku },
-  { path: '/karyawan', name: 'Karyawan', component: karyawan },
-  { path: '/fasilitas', name: 'Fasilitas', component: fasilitas },
-]
+  { path: '/', component: dashboard },
+  // { path: '/books', component: Books },
+  // { path: '/employees', component: Employees },
+  // { path: '/students', component: Students },
+  // { path: '/facilities', component: Facilities },
+  // { path: '/orders', component: Orders },
+];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes
-  });
-  
- export default router;
+  history: createWebHistory(),
+  routes,
+});
+
+export default router;

@@ -2,12 +2,12 @@
     <Navbar />
 </template>
 <script>
-    import Navbar from '@/components/navbar.vue';
+    import navbar from '@/components/navbar.vue';
 
     export default{
-        name:'dashboard',
+        name:'MainDashboard',
         components: {
-        Navbar
+        navbar
   }
     }
 </script>
