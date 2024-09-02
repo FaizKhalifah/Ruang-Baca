@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import dashboard from '@/views/dashboard.vue';
-// import Books from '@/views/Books.vue';
+import buku from '@/views/buku.vue';
 // import Employees from '@/views/Employees.vue';
 // import Students from '@/views/Students.vue';
 // import Facilities from '@/views/Facilities.vue';
@@ -8,7 +8,7 @@ import dashboard from '@/views/dashboard.vue';
 
 const routes = [
   { path: '/', component: dashboard },
-  // { path: '/books', component: Books },
+  { path: '/buku', component: buku },
   // { path: '/employees', component: Employees },
   // { path: '/students', component: Students },
   // { path: '/facilities', component: Facilities },

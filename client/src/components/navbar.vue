@@ -2,11 +2,7 @@
     <nav>
       <ul>
         <li><router-link to="/">Dashboard</router-link></li>
-        <!-- <li><router-link to="/books">Books</router-link></li>
-        <li><router-link to="/employees">Employees</router-link></li>
-        <li><router-link to="/students">Students</router-link></li>
-        <li><router-link to="/facilities">Facilities</router-link></li>
-        <li><router-link to="/orders">Orders</router-link></li> -->
+        <li><router-link to="/buku">Buku</router-link></li>
       </ul>
     </nav>
   </template>
