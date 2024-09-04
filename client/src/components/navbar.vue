@@ -1,32 +1,42 @@
 <template>
     <nav>
-        <ul>
-            <li>Admin</li>
-            <li>
-                <div class="searchBar">
-                    <div class="searchForm">
-                        <form action="">
-                            <input type="text" name="search" id="search" placeholder="search">
-                        </form>
-                        <button>Search</button>
-                    </div>
-                    <a href="/logout">Logout</a>
-                </div>
-            </li>
-        </ul>
+      <ul>
+        <li><router-link to="/">Dashboard</router-link></li>
+        <li><router-link to="/buku">Buku</router-link></li>
+      </ul>
     </nav>
-</template>
-<style scoped>
-    nav{
-        padding: 1rem;
-        background-color: #FF9B06;
-        color: white;
-    }
-
-
-</style>
-<script>
-    export default{
-        name:"NavBar"
-    }
-</script>
+  </template>
+  
+  <script>
+  export default {
+    name: "AppNavbar",
+  };
+  </script>
+  
+  <style scoped>
+  nav {
+    background-color: #333;
+    padding: 10px;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+  }
+  
+  li {
+    color: white;
+  }
+  
+  a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  </style>
+  
