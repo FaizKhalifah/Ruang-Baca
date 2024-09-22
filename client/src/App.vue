@@ -1,21 +1,11 @@
 <template>
-  <div id="app">
-    <navbar />
-    <router-view />
-  </div>
+  <router-view/>
 </template>
 
-<script>
-import navbar from './components/navbar.vue';
-
-export default {
-  name: 'App',
-  components: {
-    navbar
-  }
-};
-</script>
-
 <style>
-/* Tambahkan styling sesuai kebutuhan */
+  *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
 </style>
