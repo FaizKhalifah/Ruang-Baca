@@ -12,6 +12,10 @@
     </div>
 </template>
 <style scoped>
+
+    .content{
+        width: 90%;
+    }
     .container{
         width: 100%;
         display: flex;

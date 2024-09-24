@@ -13,7 +13,7 @@
 <style scoped>
     aside{
         background-color: #EC9A29;
-        width: 12%;
+        width: 15%;
         padding: 2rem;
         padding-bottom: 15rem;
     }
@@ -21,6 +21,8 @@
     aside a{
         text-decoration: none;
         color: white;
+        transition: 0.3s;
+        padding: 1rem;
     }
 
     aside ul{
@@ -31,6 +33,16 @@
         gap: 3rem;
         font-weight: bold;
         list-style-type: none;
+    }
+
+    li{
+        transition: 0.3s;
+    }
+
+
+    a:hover{
+        background-color: white;
+        color: #EC9A29;
     }
 </style>
 <script>
