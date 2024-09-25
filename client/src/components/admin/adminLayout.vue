@@ -6,7 +6,9 @@
             <navbarComponent/>
         </div>
         <main>
-            <h1>Ini konten utama</h1>
+            <slot>
+                
+            </slot>
         </main>
     </div>
     </div>
