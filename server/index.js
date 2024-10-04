@@ -4,6 +4,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
+import authRouter from "./routes/authRoutes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -16,8 +17,10 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.use(authRouter);
+
 const port = '3000';
-const connection ='mongodb://localhost:27017/kosabi';
+const connection ='mongodb://localhost:27017/ruangbaca';
 mongoose.connect(connection)
 .then(() => app.listen(port))
   .then(console.log(`server start on port ${port}`))
