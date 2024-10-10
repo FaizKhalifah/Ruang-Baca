@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed-user": "node database/seed/userSeeder.js"
+    "seed-user": "node database/seed/userSeeder.js",
+    "clear-user": "node database/migrations/clearUser.js"
   },
   "author": "faiz",
   "license": "ISC",
