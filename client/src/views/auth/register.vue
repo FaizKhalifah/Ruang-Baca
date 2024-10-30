@@ -15,7 +15,7 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
             </div>
-            <p>  Don't have an account?<a href="/register">Sign up here</a></p>
+            <p>  Already have an account?<a href="/login">Log in here</a></p>
             <button>Submit</button>
         </form>
         <img src="../../assets/login.png" alt="">

@@ -1,19 +1,15 @@
 <template>
     <div id="login">
-        <form action="">
+        <form action="" @submit.prevent="loginUser">
             
             <h1>Login</h1>
             <div>
-                <label for="username">username</label>
-                <input type="text" name="username" id="username">
-            </div>
-            <div>
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" v-model="email" >
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input type="password" name="password" id="password" v-model="password" >
             </div>
             <p>  Don't have an account?<a href="/register">Sign up here</a></p>
             <button>Submit</button>
@@ -91,6 +87,56 @@
 </style>
 <script>
     export default{
-        name:'loginView'
+        name:'loginView',
+        data() {
+        return {
+            email: '',
+            password: '',
+            errorMessage: ''
+    };
+  },
+  methods:{
+    async loginUser() {
+        console.log(this.email);
+        console.log(this.password);
+      try {
+        const response = await fetch('http://localhost:3000/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username:this.username,
+            email: this.email,
+            password: this.password
+          })
+        });
+        console.log(response);
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          this.errorMessage = data.msg;
+          return;
+        }
+
+        // Simpan token dan role di localStorage
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role',data.role);
+
+        // Redirect berdasarkan role
+        if (data.role === 'admin') {
+          this.$router.push('/admin/dashboard');
+        } else if(data.role === 'user') {
+          this.$router.push('/home');
+        }else{
+            console.log("unknown role");
+        }
+      } catch (error) {
+        console.error('Login failed:', error);
+        this.errorMessage = 'Login failed';
+      }
+    }
+  
+
+  }
     }
 </script>
