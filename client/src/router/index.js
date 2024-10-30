@@ -3,6 +3,7 @@ import dashboard from '@/views/admin/dashboard.vue'
 import BooksView from '@/views/admin/booksView.vue'
 import login from '@/views/auth/login.vue'
 import register from '@/views/auth/register.vue'
+import home from '@/views/user/home.vue'
 
 const routes = [
   {
@@ -17,14 +18,21 @@ const routes = [
   },
   {
     path: '/admin/dashboard',
-    name: 'home',
+    name: 'AdminDashboard',
     component: dashboard,
-    meta: { requiresAuth: true}
+    meta: { requiresAuth: true, role:'admin'}
   },
   {
     path: '/admin/books',
     name:'books',
-    component:BooksView
+    component:BooksView,
+    meta: { requiresAuth: true, role:'admin'}
+  },
+  {
+    path: '/home',
+    name:'home',
+    component:home,
+    meta: { requiresAuth: true, role:'user'}
   }
 ]
 
@@ -35,16 +43,12 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = localStorage.getItem('token');
-  const userRole = localStorage.getItem('role');
+  const role = localStorage.getItem('role');
 
-  if (to.meta.requiresAuth) {
-    if (!token) {
-      next('/login');
-    } else if (to.meta.role && to.meta.role !== userRole) {
-      next('/login');
-    } else {
-      next();
-    }
+  if (to.meta.requiresAuth && !token) {
+    next({ name: 'Login' });
+  } else if (to.meta.role && to.meta.role !== role) {
+    next(role === 'admin' ? { name: 'AdminDashboard' } : { name: 'home' });
   } else {
     next();
   }
