@@ -10,7 +10,7 @@
                         </form>
                         <button>Search</button>
                     </div>
-                    <a href="/logout">Logout</a>
+                    <a @click.prevent="logout">Logout</a>
                 </div>
             </li>
         </ul>  
@@ -18,8 +18,15 @@
 </template>
 <script>
     export default{
-        name:'navbarComponent'
+        name:'adminNavbarComponent',
+        methods:{
+          logout(){
+            localStorage.removeItem('token'); 
+            localStorage.removeItem('role'); 
+            this.$router.push({ name: 'login' }); 
+        }
     }
+}
 </script>
 <style scoped>
     nav{
@@ -61,6 +68,7 @@
     .searchBar a{
         text-decoration: none;
         color: white;
+        cursor: pointer;
     }
 
     nav input[type=text]{

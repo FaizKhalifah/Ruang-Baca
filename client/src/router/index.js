@@ -18,7 +18,7 @@ const routes = [
   },
   {
     path: '/admin/dashboard',
-    name: 'AdminDashboard',
+    name: 'adminDashboard',
     component: dashboard,
     meta: { requiresAuth: true, role:'admin'}
   },
@@ -33,7 +33,24 @@ const routes = [
     name:'home',
     component:home,
     meta: { requiresAuth: true, role:'user'}
+  },
+
+  { 
+    path: '/:pathMatch(.*)*', 
+    redirect: (to) => {
+      const role = localStorage.getItem('role');
+      const intendedPath = to.fullPath; 
+      if (!role) {
+        console.warn(`Attempted to access ${intendedPath} without authentication`);
+        return { name: 'login' };
+      }
+
+      // If role exists, redirect to the appropriate page
+      console.warn(`Redirecting from ${intendedPath} based on role`);
+      return role === 'admin' ? { name: 'adminDashboard' } : { name: 'home' };
+    }
   }
+
 ]
 
 const router = createRouter({
@@ -46,9 +63,9 @@ router.beforeEach((to, from, next) => {
   const role = localStorage.getItem('role');
 
   if (to.meta.requiresAuth && !token) {
-    next({ name: 'Login' });
+    next({ name: 'login' });
   } else if (to.meta.role && to.meta.role !== role) {
-    next(role === 'admin' ? { name: 'AdminDashboard' } : { name: 'home' });
+    next(role === 'admin' ? { name: 'adminDashboard' } : { name: 'home' });
   } else {
     next();
   }

@@ -4,7 +4,7 @@
     </adminLayout>
 </template>
 <script>
-    import adminLayout from '@/components/admin/adminLayout.vue';
+    import adminLayout from '@/components/layout/adminLayout.vue';
     export default{
         name:'booksView',
         components:{
