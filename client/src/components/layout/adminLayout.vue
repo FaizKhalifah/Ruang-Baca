@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <sidebarComponent/>
+        <adminSidebar/>
     <div class="content">
         <div class="navbar">
-            <navbarComponent/>
+            <adminNavbar/>
         </div>
         <main>
             <slot>
@@ -25,13 +25,13 @@
     }
 </style>
 <script>
-    import navbarComponent from './navbarComponent.vue';
-    import sidebarComponent from './sidebarComponent.vue';
+    import adminNavbar from '../navbar/adminNavbar.vue';
+    import adminSidebar from '../sidebar/adminSidebar.vue';
     export default{
         name:'adminLayout',
         components:{
-            navbarComponent,
-            sidebarComponent
+            adminNavbar,
+            adminSidebar
         }
     }
 </script>

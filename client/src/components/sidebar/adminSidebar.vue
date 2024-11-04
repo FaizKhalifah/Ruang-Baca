@@ -16,6 +16,7 @@
         width: 15%;
         padding: 2rem;
         padding-bottom: 15rem;
+        min-height: 100vh;
     }
 
     aside a{
@@ -47,6 +48,6 @@
 </style>
 <script>
     export default{
-        name:'sidebarComponent'
+        name:'adminSidebarComponent'
     }
 </script>
