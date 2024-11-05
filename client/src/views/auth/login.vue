@@ -1,6 +1,6 @@
 <template>
     <div id="login">
-        <form action="" @submit.prevent="loginUser">
+        <form @submit.prevent="loginUser">
             
             <h1>Login</h1>
             <div>
@@ -13,6 +13,11 @@
             </div>
             <p>  Don't have an account?<a href="/register">Sign up here</a></p>
             <button>Submit</button>
+
+            <div v-if="errorMessage" class="error-message">
+              {{ errorMessage }}
+            </div>
+
         </form>
         <img src="../../assets/login.png" alt="">
     </div>
@@ -84,6 +89,15 @@
         width: 30rem;
         border-radius: 1rem;
     }
+
+    .error-message{
+      width: 20rem;
+      background-color: red;
+      color: white;
+      border-radius: 2rem;
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
 </style>
 <script>
     export default{
@@ -104,17 +118,16 @@
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            username:this.username,
             email: this.email,
             password: this.password
           })
         });
         console.log(response);
-
         const data = await response.json();
-
+        console.log(data);
         if (!response.ok) {
-          this.errorMessage = data.msg;
+          this.errorMessage = data.msg || 'Login gagal, coba lagi';
+          console.log(this.errorMessage);
           return;
         }
 
@@ -132,7 +145,8 @@
         }
       } catch (error) {
         console.error('Login failed:', error);
-        this.errorMessage = 'Login failed';
+        this.errorMessage = 'An error occurred during login. Please try again later.';
+   
       }
     }
   

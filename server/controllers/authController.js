@@ -10,10 +10,8 @@ async function register(req, res) {
             return res.status(400).json({ msg: "User already exists" });
         }
 
-      
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(password, salt);
-
        
         user = new User({
             username,
@@ -24,7 +22,13 @@ async function register(req, res) {
 
         // Menyimpan user ke database
         await user.save();
-        res.status(201).json({ msg: "User registered" });
+        const token = jwt.sign(
+            { id: user._id, role: user.role },
+            'your_jwt_secret',
+            { expiresIn: '1h' }
+        );
+
+        res.status(201).json({ token, role:user.role });
 
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -43,7 +47,7 @@ async function login(req, res) {
         // Memverifikasi password
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
-            return res.status(400).json({ msg: 'Wrong password' });
+            return res.status(400).json({ passwordasli:password, password:user.password, msg: 'Wrong password' });
         }
 
         // Membuat JWT
