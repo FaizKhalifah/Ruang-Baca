@@ -1,19 +1,19 @@
 <template>
     <div id="login">
-        <form action="">
+        <form @submit.prevent="registerUser">
             
             <h1>Register</h1>
             <div>
                 <label for="username">username</label>
-                <input type="text" name="username" id="username">
+                <input type="text" v-model="username">
             </div>
             <div>
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email">
+                <input type="email" v-model="email">
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" name="password" id="password">
+                <input type="password" v-model="password">
             </div>
             <p>  Already have an account?<a href="/login">Log in here</a></p>
             <button>Submit</button>
@@ -91,6 +91,40 @@
 </style>
 <script>
     export default{
-        name:'registerView'
+        name:'registerView',
+        data(){
+            return{
+                username:'',
+                email:'',
+                password:'',
+                errorMessage:''
+            }
+        },
+        methods:{
+            async registerUser(){
+                try{
+                    const response = await fetch('http://localhost:3000/register',{
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            username:this.username,
+                            email: this.email,
+                            password: this.password
+                        })
+                    });
+                    const data = await response.json();
+                    if (!response.ok) {
+                        this.errorMessage = data.msg || 'Register gagal, coba lagi';
+                        console.log(this.errorMessage);
+                        return;
+                    }
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('role',data.role);
+                    this.$router.push('/home');
+                }catch(err){
+                    console.log(err);
+                }
+            }
+        }
     }
 </script>
