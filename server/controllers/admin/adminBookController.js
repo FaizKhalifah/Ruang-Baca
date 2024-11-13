@@ -1,9 +1,9 @@
-import Book from "../../models/book";
+import Book from "../../models/book.js";
 
 async function addBook(req,res) {
     try{
         const {title,author,publishedYear,publisher,isbn} = req.body;
-        let book = await Book.findOne(isbn);
+        let book = await Book.findOne({isbn});
         if(book){
             return res.status(400).json({msg:"buku sudah ada di database"});
         }
