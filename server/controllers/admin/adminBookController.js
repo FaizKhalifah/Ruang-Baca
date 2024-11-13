@@ -1,5 +1,16 @@
 import Book from "../../models/book.js";
 
+async function getAllBooks(req,res) {
+    try{
+        const books = await Book.find();
+        if(books.length==0){
+            return res.status(201).json({msg:"Tidak ada buku di database"})
+        }
+        res.json(books);
+    }catch(err){
+        res.status(400).json({error:err.message});
+    }
+}
 async function addBook(req,res) {
     try{
         const {title,author,publishedYear,publisher,isbn} = req.body;
@@ -18,5 +29,5 @@ async function addBook(req,res) {
 }
 
 export default{
-    addBook
+    addBook,getAllBooks
 }
