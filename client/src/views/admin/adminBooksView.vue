@@ -1,14 +1,16 @@
 <template>
     <adminLayout>
-        <h1>Ini halaman Buku</h1>
+        <adminBooksCard/>
     </adminLayout>
 </template>
 <script>
     import adminLayout from '@/components/layout/adminLayout.vue';
+    import adminBooksCard from '@/components/card/admin/adminBooksCard.vue';
     export default{
-        name:'booksView',
+        name:'adminBooksView',
         components:{
-            adminLayout
+            adminLayout,
+            adminBooksCard
         }
     }
 </script>

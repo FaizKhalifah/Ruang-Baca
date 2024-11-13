@@ -1,7 +1,6 @@
 import overview from "@/views/admin/overview.vue";
-import booksView from "@/views/admin/booksView.vue";
-import journal from "@/views/admin/journal.vue";
-
+import adminBooksView from "@/views/admin/adminBooksView.vue";
+import adminJournalView from "@/views/admin/adminJournalView.vue";
 export default [
     {
         path: '/admin/dashboard',
@@ -12,13 +11,13 @@ export default [
       {
         path: '/admin/books',
         name:'books',
-        component:booksView,
+        component:adminBooksView,
         meta: { requiresAuth: true, role:'admin'}
       },
       {
         path:'/admin/journals',
         name:'adminJournals',
-        component:journal,
+        component:adminJournalView,
         meta: { requiresAuth: true, role:'admin'}
       }
 ]
