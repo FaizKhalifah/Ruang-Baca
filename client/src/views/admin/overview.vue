@@ -1,15 +1,17 @@
 <template>
     <adminLayout>
-        <h1>Ini halaman dashboard</h1>
+        <adminOverviewCard/>
     </adminLayout>
 </template>
 
 <script>
     import adminLayout from '@/components/layout/adminLayout.vue';
+    import adminOverviewCard from '@/components/card/admin/adminOverviewCard.vue';
     export default{
         name:'dashboardView',
         components:{
-            adminLayout
+            adminLayout,
+            adminOverviewCard
         }
     }
 
