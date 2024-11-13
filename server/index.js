@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: 'http://localhost:8080' // Izinkan hanya dari frontend Vue
+  origin: 'http://localhost:8081' // Izinkan hanya dari frontend Vue
 }));
 
 
