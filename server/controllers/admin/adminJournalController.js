@@ -26,7 +26,16 @@ async function getJournalById(req,res) {
 
 async function addJournal(req,res) {
     try{
-
+        const {title,authors,publishedYear,publisher,volume,number}= req.body;
+        let journal = await Journal.findOne({title});
+        if(journal){
+           return res.status(401).json({error:"Journal already exist"});
+        }
+        journal = new Journal({
+            title,authors,publishedYear,publisher,volume,number
+        })
+        await journal.save();
+        res.status(201).json({msg:"journal berhasil disimpan"});
     }catch(err){
         res.status(400).json({error:err.message});
     }
@@ -34,7 +43,11 @@ async function addJournal(req,res) {
 
 async function updateJournal(req,res) {
     try{
-
+        const journal = await Journal.findByIdAndUpdate(req.params.id,req.body,{new:true});
+        if(!journal){
+            res.status(400).json({error:"journal not found"});
+        }
+        res.json({msg:"Journal has been updated"});
     }catch(err){
         res.status(400).json({error:err.message});
     }
