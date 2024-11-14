@@ -53,9 +53,13 @@ async function updateJournal(req,res) {
     }
 }
 
-async function deleteJournal(params) {
+async function deleteJournal(req,res) {
     try{
-
+        const journal = await Journal.findByIdAndDelete(req.params.id);
+        if(!journal){
+            res.status(400).json({error:"Journal not found"});
+        }
+        res.status(201).json({msg:"Journal deleted succesfully"});
     }catch(err){
         res.status(400).json({error:err.message});
     }

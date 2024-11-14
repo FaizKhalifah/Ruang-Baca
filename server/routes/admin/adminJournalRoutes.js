@@ -19,4 +19,7 @@ adminJournalRouter.put('/admin/journal/update/:id',authMiddleware.verifyToken,au
     adminJournalController.updateJournal
 );
 
+adminJournalRouter.delete('/admin/journal/delete/:id',authMiddleware.verifyToken,authMiddleware.isAdmin,
+    adminJournalController.deleteJournal
+)
 export default adminJournalRouter;
