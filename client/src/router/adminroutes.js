@@ -1,5 +1,7 @@
 import overview from "@/views/admin/overview.vue";
-import adminBooksView from "@/views/admin/adminBooksView.vue";
+import adminBooksListView from "@/views/admin/Books/adminBooksListView.vue";
+import adminAddBookView from "@/views/admin/Books/adminAddBookView.vue";
+import adminEditBookView from "@/views/admin/Books/adminEditBookView.vue";
 import adminJournalView from "@/views/admin/adminJournalView.vue";
 export default [
     {
@@ -11,7 +13,19 @@ export default [
       {
         path: '/admin/books',
         name:'books',
-        component:adminBooksView,
+        component:adminBooksListView,
+        meta: { requiresAuth: true, role:'admin'}
+      },
+      {
+        path:'/admin/book/add',
+        name:'add books',
+        component:adminAddBookView,
+        meta: { requiresAuth: true, role:'admin'}
+      },
+      {
+        path:'/admin/book/edit/:id',
+        name:'edit books',
+        component:adminEditBookView,
         meta: { requiresAuth: true, role:'admin'}
       },
       {
