@@ -1,16 +1,19 @@
 import jwt from "jsonwebtoken";
 
-async function verifyToken(req,res,next) {
-    const token = req.header('Authorization');
-    if(!token){
+async function verifyToken(req, res, next) {
+    const authHeader = req.header('Authorization');
+    const token = authHeader && authHeader.split(' ')[1];  // Memisahkan 'Bearer' dari token
+
+    if (!token) {
         return res.status(401).json({ msg: 'No token, authorization denied' });
     }
-    try{
+
+    try {
         const decoded = jwt.verify(token, 'your_jwt_secret');
         req.user = decoded;
         next();
-    }catch(err){
-        return res.status(401).json({msg:"Token is not valid"})
+    } catch (err) {
+        return res.status(401).json({ msg: "Token is not valid" });
     }
 }
 
