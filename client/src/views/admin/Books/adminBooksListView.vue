@@ -1,16 +1,16 @@
 <template>
     <adminLayout>
-        <adminBooksCard/>
+        <adminBooksListCard/>
     </adminLayout>
 </template>
 <script>
     import adminLayout from '@/components/layout/adminLayout.vue';
-    import adminBooksCard from '@/components/card/admin/adminBooksCard.vue';
+    import adminBooksListCard from '@/components/card/admin/Books/adminBooksListCard.vue';
     export default{
-        name:'adminBooksView',
+        name:'adminBooksListView',
         components:{
             adminLayout,
-            adminBooksCard
+            adminBooksListCard
         }
     }
 </script>
