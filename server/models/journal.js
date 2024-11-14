@@ -9,7 +9,7 @@ const journalSchema = new Schema({
     publishedYear:{
         type:Number
     },
-    journal:{
+    publisher:{
         type:String
     },
     volume:{
