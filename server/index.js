@@ -7,6 +7,7 @@ import bodyParser from "body-parser";
 import authRouter from "./routes/authRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
 import adminBookRouter from "./routes/admin/adminBookRoutes.js";
+import adminJournalRouter from "./routes/admin/adminJournalRoutes.js";
 import cors from "cors";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,6 +29,7 @@ app.use(cors({
 app.use(authRouter);
 app.use(adminRouter);
 app.use(adminBookRouter);
+app.use(adminJournalRouter);
 
 const port = '3000';
 const connection ='mongodb://localhost:27017/ruangbaca';
