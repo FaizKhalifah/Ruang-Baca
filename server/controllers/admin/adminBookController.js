@@ -1,5 +1,17 @@
 import Book from "../../models/book.js";
 
+async function getBookById(req,res) {
+    try{
+        const book = await Book.findById(req.params.id);
+        if(!book){
+            res.status(400).json({error:"Book not found"});
+            res.json(book);
+        }
+    }catch(err){
+        res.status(400).json({error:err.message})
+    }
+}
+
 async function getAllBooks(req,res) {
     try{
         const books = await Book.find();
@@ -11,6 +23,7 @@ async function getAllBooks(req,res) {
         res.status(400).json({error:err.message});
     }
 }
+
 async function addBook(req,res) {
     try{
         const {title,author,publishedYear,publisher,isbn} = req.body;
@@ -28,6 +41,34 @@ async function addBook(req,res) {
     }
 }
 
+async function updateBook(req, res) {
+    try {
+        // Menggunakan ID dari parameter route
+        const book = await Book.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!book) {
+            return res.status(404).json({ error: "Book not found" });
+        }
+        res.json({ msg: `Buku dengan id ${req.params.id} berhasil di-update`, book });
+    } catch (err) {
+        console.error("Update Error:", err);
+        res.status(400).json({ error: err.message });
+    }
+}
+
+
+
+async function deleteBook(req,res) {
+        try{
+            const book = await Book.findByIdAndDelete(req.params.id);
+            if(!book){
+                res.status(400).json({error:"Book not found"});
+            }
+            res.json({msg:"Buku berhasil dihapus"})
+        }catch(err){
+            res.status(400).json({error:err.message});
+        }
+}
+
 export default{
-    addBook,getAllBooks
+    addBook,getAllBooks, updateBook,getBookById,deleteBook
 }
