@@ -21,8 +21,8 @@
           <td>{{ journal.volume }}</td>
           <td>{{ journal.number }}</td>
           <td>
-            <button @click="editBook(book._id)" class="editButton">Edit</button>
-            <button @click="deleteBook(book._id)"  class="deleteButton">Delete</button>
+            <button @click="editJournal(journal._id)" class="editButton">Edit</button>
+            <button @click="deleteJournal(journal._id)"  class="deleteButton">Delete</button>
           </td>
         </tr>
       </tbody>
