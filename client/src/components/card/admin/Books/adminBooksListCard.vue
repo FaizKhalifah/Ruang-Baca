@@ -19,8 +19,8 @@
           <td>{{ book.publisher }}</td>
           <td>{{ book.isbn }}</td>
           <td>
-            <button @click="editBook(book._id)" style="background-color: orange;">Edit</button>
-            <button @click="deleteBook(book._id)" style="background-color: red;">Delete</button>
+            <button @click="editBook(book._id)" class="editButton">Edit</button>
+            <button @click="deleteBook(book._id)"  class="deleteButton">Delete</button>
           </td>
         </tr>
       </tbody>
@@ -65,6 +65,35 @@
         background-color: white;
         color: #04AA6D;
     }
+
+    .editButton, .deleteButton{
+      width: 5rem;
+      text-align: center;
+      margin: auto;
+      border-radius: 0.5rem;
+      border: 1px solid white;
+      transition: 0.3s
+    }
+
+    .editButton{
+      background-color: orange;
+    }
+
+    .editButton:hover{
+        background-color: white;
+        color: orange;
+        border-color: orange;
+    }
+
+    .deleteButton{
+      background-color: red;
+    }
+
+    .deleteButton:hover{
+        background-color: white;
+        color: red;
+        border-color: red;
+    }
 </style>
 <script>
     import baseCard from '@/components/base/baseCard.vue';
@@ -94,7 +123,7 @@
       this.$router.push(`/admin/book/edit/${id}`);
     },
     async deleteBook(id) {
-      await fetch(`http://localhost:3000/api/books/${id}`, {
+      await fetch(`http://localhost:3000/admin/books/delete/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`

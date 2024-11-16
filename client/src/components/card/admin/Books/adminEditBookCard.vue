@@ -80,20 +80,30 @@
             isbn: "",
             };
         },
-        async created() {
-            const id = this.$route.params.id;
-            const response = await fetch(`http://localhost:3000/admin/books/${id}`, {
+    async created() {
+    const id = this.$route.params.id; // Ambil ID dari URL
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`http://localhost:3000/admin/books/${id}`, {
+            method:'GET',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${token}`, 
+                'Content-Type': 'application/json'
             }
-            });
-            const book = await response.json();
-            this.title = book.title;
-            this.author = book.author;
-            this.publishedYear = book.publishedYear;
-            this.publisher = book.publisher;
-            this.isbn = book.isbn;
-        },
+        });
+        if (!response.ok) throw new Error("Failed to fetch book data");
+        const book = await response.json();
+
+        this.title = book.title || ""; // Defaultkan ke string kosong jika null
+        this.author = book.author || "";
+        this.publishedYear = book.publishedYear || "";
+        this.publisher = book.publisher || "";
+        this.isbn = book.isbn || "";
+    } catch (error) {
+        console.error("Error fetching book data:", error);
+        alert("Gagal mengambil data buku. Silakan coba lagi.");
+    }
+},
         methods: {
         async updateBook() {
         const id = this.$route.params.id;
