@@ -27,7 +27,7 @@
         </tr>
       </tbody>
     </table>
-    <button @click="addBook" class="addButton">Add book</button>
+    <button @click="addJournal" class="addButton">Add Journal</button>
     </baseCard>
 </template>
 <style>
