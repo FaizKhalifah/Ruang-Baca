@@ -5,8 +5,8 @@ async function getBookById(req,res) {
         const book = await Book.findById(req.params.id);
         if(!book){
             res.status(400).json({error:"Book not found"});
-            res.json(book);
         }
+        res.status(201).json(book);
     }catch(err){
         res.status(400).json({error:err.message})
     }
