@@ -17,9 +17,12 @@ const userSchema = new Schema({
       },
       role: {
         type: String,
-        enum: ['user', 'admin'],
+        enum: ['user', 'admin', 'member'],
         default: 'user',
       },
+      NIM: { type: String, required: function() { return this.role === 'member'; }},
+      faculty: { type: String, required: function() { return this.role === 'member'; }},
+      department: { type: String, required: function() { return this.role === 'member'; }},
 });
 
 const User = mongoose.model('User',userSchema);
