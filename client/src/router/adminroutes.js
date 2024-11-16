@@ -43,7 +43,7 @@ export default [
         meta: { requiresAuth: true, role:'admin'}
       },
       {
-        path:'/admin/journal/edit',
+        path:'/admin/journal/edit/:id',
         name:'edit journal',
         component:adminEditJournalView,
         meta: { requiresAuth: true, role:'admin'}
