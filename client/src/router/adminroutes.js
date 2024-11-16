@@ -2,7 +2,9 @@ import overview from "@/views/admin/overview.vue";
 import adminBooksListView from "@/views/admin/Books/adminBooksListView.vue";
 import adminAddBookView from "@/views/admin/Books/adminAddBookView.vue";
 import adminEditBookView from "@/views/admin/Books/adminEditBookView.vue";
-import adminJournalView from "@/views/admin/adminJournalView.vue";
+import adminJournalsListView from "@/views/admin/Journals/adminJournalsListView.vue";
+import adminAddJournalView from "@/views/admin/Journals/adminAddJournalView.vue";
+import adminEditJournalView from "@/views/admin/Journals/adminEditJournalView.vue";
 export default [
     {
         path: '/admin/dashboard',
@@ -31,7 +33,20 @@ export default [
       {
         path:'/admin/journals',
         name:'adminJournals',
-        component:adminJournalView,
+        component:adminJournalsListView,
         meta: { requiresAuth: true, role:'admin'}
-      }
+      },
+      {
+        path:'/admin/journal/add',
+        name:'add journal',
+        component:adminAddJournalView,
+        meta: { requiresAuth: true, role:'admin'}
+      },
+      {
+        path:'/admin/journal/edit',
+        name:'edit journal',
+        component:adminEditJournalView,
+        meta: { requiresAuth: true, role:'admin'}
+      },
+
 ]

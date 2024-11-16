@@ -1,16 +1,16 @@
 <template>
     <adminLayout>
-        <adminJournalsCard/>
+        <adminJournalsListCard/>
     </adminLayout>
 </template>
 <script>
     import adminLayout from '@/components/layout/adminLayout.vue';
-    import adminJournalsCard from '@/components/card/admin/adminJournalsCard.vue';
+    import adminJournalsListCard from '@/components/card/admin/Journals/adminJournalsListCard.vue';
     export default{
         name:"adminJournalViewComponent",
         components:{
             adminLayout,
-            adminJournalsCard
+            adminJournalsListCard
         }
     }
 </script>
