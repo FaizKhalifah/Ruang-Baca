@@ -1,17 +1,26 @@
 <template>
     <homeLayout>
-        <p>Ini halaman home</p>
+        <div class="content">
+            <homeHeroSection/>
+        </div>
     </homeLayout>
 </template>
-<style>
-
+<style scoped>
+    /* .content{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    } */
 </style>
 <script>
+    import homeHeroSection from '@/components/section/homeHeroSection.vue';
     import homeLayout from '@/components/layout/homeLayout.vue';
     export default{
         name:"homeView",
         components:{
-            homeLayout
+            homeLayout,
+            homeHeroSection
         }
     }
 </script>
