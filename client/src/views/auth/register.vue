@@ -15,6 +15,10 @@
                 <label for="password">Password</label>
                 <input type="password" v-model="password">
             </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password" v-model="password">
+            </div>
             <p>  Already have an account?<a href="/login">Log in here</a></p>
             <button>Submit</button>
         </form>
@@ -97,6 +101,10 @@
                 username:'',
                 email:'',
                 password:'',
+                NIM:'',
+                faculty:'',
+                major:'',
+                domicile:'',
                 errorMessage:''
             }
         },
@@ -109,7 +117,11 @@
                         body: JSON.stringify({
                             username:this.username,
                             email: this.email,
-                            password: this.password
+                            password: this.password,
+                            NIM:this.NIM,
+                            faculty:this.faculty,
+                            major:this.major,
+                            domicile:this.domicile
                         })
                     });
                     const data = await response.json();
