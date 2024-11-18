@@ -6,7 +6,7 @@
         </div>
     </div>
 </template>
-<style>
+<style scoped>
     .hero{
         width: 100%;
         background-image: url("../../assets/library.jpg");
