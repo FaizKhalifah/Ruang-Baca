@@ -1,6 +1,7 @@
 import Router from "express";
 import authMiddleware from "../../Middleware/authMiddleware.js";
 import adminBookController from "../../controllers/admin/adminBookController.js";
+import upload from "../../Middleware/uploadMiddleware.js";
 
 const adminBookRouter = Router();
 
@@ -12,7 +13,7 @@ adminBookRouter.get('/admin/books/:id',authMiddleware.verifyToken,authMiddleware
     adminBookController.getBookById
 )
 
-adminBookRouter.post('/admin/books/add', authMiddleware.verifyToken,authMiddleware.isAdmin,
+adminBookRouter.post('/admin/books/add', authMiddleware.verifyToken,authMiddleware.isAdmin,  upload.single('image'),
         adminBookController.addBook);
 
 adminBookRouter.put('/admin/books/update/:id', authMiddleware.verifyToken, authMiddleware.isAdmin,

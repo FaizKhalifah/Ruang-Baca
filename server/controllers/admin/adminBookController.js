@@ -1,4 +1,10 @@
 import Book from "../../models/book.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 async function getBookById(req,res) {
     try{
@@ -23,21 +29,43 @@ async function getAllBooks(req,res) {
         res.status(400).json({error:err.message});
     }
 }
+async function addBook(req, res) {
+    try {
+        const { title, author, publishedYear, publisher, isbn } = req.body;
 
-async function addBook(req,res) {
-    try{
-        const {title,author,publishedYear,publisher,isbn} = req.body;
-        let book = await Book.findOne({isbn});
-        if(book){
-            return res.status(400).json({msg:"buku sudah ada di database"});
+        // Periksa apakah buku dengan ISBN yang sama sudah ada
+        let book = await Book.findOne({ isbn });
+        if (book) {
+            return res.status(400).json({ msg: "Buku sudah ada di database" });
         }
+
+        // Jika ada file yang diunggah
+        let imagePath = null;
+        if (req.file) {
+            const uploadDir = path.join(__dirname, '../uploads'); // Path absolut ke folder uploads
+
+            // Pastikan folder uploads ada
+            if (!fs.existsSync(uploadDir)) {
+                fs.mkdirSync(uploadDir, { recursive: true });
+            }
+
+            imagePath = `/uploads/${req.file.filename}`;
+        }
+
+        // Buat buku baru
         book = new Book({
-            title,author,publishedYear,publisher,isbn
-        })
+            title,
+            author,
+            publishedYear,
+            publisher,
+            isbn,
+            imagePath, // Path relatif untuk diakses client
+        });
+
         await book.save();
-        res.status(201).json({msg:"Buku berhasil disimpan"});
-    }catch(err){
-        res.status(400).json({error : err.message})
+        res.status(201).json({ msg: "Buku berhasil disimpan", book });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 }
 

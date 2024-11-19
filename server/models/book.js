@@ -22,6 +22,9 @@ const bookSchema = new Schema({
         type:String,
         unique:true,
         required:true
+    },
+    imagePath:{
+        type:String
     }
 })
 

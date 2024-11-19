@@ -14,14 +14,14 @@ const __dirname = path.dirname(__filename);
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true, limit:'1mb' }));
+app.use(bodyParser.json({limit:'1mb'}));
 
 app.use(cors({
   origin: 'http://localhost:8081' // Izinkan hanya dari frontend Vue
 }));
+
 
 
 app.use(authRouter);
@@ -31,5 +31,6 @@ const port = '3000';
 const connection ='mongodb://localhost:27017/ruangbaca';
 mongoose.connect(connection)
 .then(() => app.listen(port))
+  .then(console.log(__dirname))
   .then(console.log(`server start on port ${port}`))
   .catch((err) => console.log(err));
