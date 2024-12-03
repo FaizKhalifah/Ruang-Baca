@@ -1,8 +1,9 @@
 <template>
-    <baseCard title="Books" card-class="adminBooksListCard">
-        <table>
+  <baseCard title="Books" card-class="adminBooksListCard">
+    <table>
       <thead>
         <tr>
+          <th>Image</th>
           <th>Title</th>
           <th>Author</th>
           <th>Published Year</th>
@@ -13,8 +14,11 @@
       </thead>
       <tbody>
         <tr v-for="book in books" :key="book._id">
+          <td>
+            <img :src="`http://localhost:3000${book.imagePath}`" alt="Book Image" class="bookImage" />
+          </td>
           <td>{{ book.title }}</td>
-          <td>{{ book.author}}</td>
+          <td>{{ book.author }}</td>
           <td>{{ book.publishedYear }}</td>
           <td>{{ book.publisher }}</td>
           <td>{{ book.isbn }}</td>
@@ -26,8 +30,9 @@
       </tbody>
     </table>
     <button @click="addBook" class="addButton">Add book</button>
-    </baseCard>
+  </baseCard>
 </template>
+
 <style>
     table, th, td{
        border: 1px solid black;
@@ -49,6 +54,14 @@
         color: white;
         border: 1px solid white;
     }
+
+    .bookImage {
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
 
     .addButton{
         cursor: pointer;
@@ -109,6 +122,7 @@
   },
   async created() {
     await this.fetchBooks();
+    console.log(this.books);
   },
   methods: {
     async fetchBooks() {

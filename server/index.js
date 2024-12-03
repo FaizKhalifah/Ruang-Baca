@@ -17,6 +17,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true, limit:'1mb' }));
 app.use(bodyParser.json({limit:'1mb'}));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
 
 app.use(cors({
   origin: 'http://localhost:8081' // Izinkan hanya dari frontend Vue
