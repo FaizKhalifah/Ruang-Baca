@@ -1,6 +1,6 @@
 <template>
     <baseCard title="Books" card-class="userBookCard">
-    
+        
     </baseCard>
 </template>
 <style>
