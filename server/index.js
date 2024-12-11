@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import bodyParser from "body-parser";
 import authRouter from "./routes/authRoutes.js";
 import adminRouter from "./routes/adminRoutes.js";
+import userRouter from "./routes/userRoutes.js";
 import cors from "cors";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -29,6 +30,7 @@ app.use(cors({
 
 app.use(authRouter);
 app.use(adminRouter);
+app.use(userRouter);
 
 const port = '3000';
 const connection ='mongodb://localhost:27017/ruangbaca';
