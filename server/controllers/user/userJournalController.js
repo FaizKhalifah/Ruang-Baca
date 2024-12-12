@@ -23,3 +23,7 @@ async function getJournalById(req,res) {
         res.status(400).json({error:err.message});
     }
 }
+
+export default{
+    getAllJournals,getJournalById
+}
