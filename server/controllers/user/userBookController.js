@@ -46,6 +46,22 @@ async function loanBook(req,res) {
       }
 }
 
+async function returnBook(req,res) {
+    try{
+        const {loanId} = req.body;
+        const loan = await Loan.findById(loanId);
+        if (!loan || loan.status === 'returned') {
+            return res.status(400).json({ message: 'Invalid loan record' });
+          }
+        loan.status = 'returned';
+        loan.returnDate = Date.now();
+        await loan.save();
+        res.status(200).json({ message: 'Book returned successfully', loan });
+
+    }catch(err){
+        return res.json({"msg":"error returning book"})
+    }
+}
 export default{
-    getBookById, getAllBooks
+    getBookById, getAllBooks,loanBook,returnBook
 }
