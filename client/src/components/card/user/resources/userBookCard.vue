@@ -12,7 +12,8 @@
                 <p class="bookPublisher">{{ book.publisher }}</p>
                 <p class="bookIsbn">ISBN : {{ book.isbn }}</p>
                 </div>
-               <button>Pinjam</button>
+                <button v-if="!book.isBorrowed" @click="borrowBook(book._id)">Borrow</button>
+                <span v-else>Already Borrowed</span>
             </div>
         </div>
     </baseCard>
@@ -112,6 +113,29 @@
       });
       this.books = await response.json();
     },
+    async borrowBook(bookId){
+        try{
+            const response = await fetch('http://localhost:3000/books/borrow', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ userId: this.userId, bookId })
+        });
+        console.log(response);
+        const data = await response.json();
+        if (response.ok) {
+            alert('Book borrowed successfully!');
+        } else {
+            alert(data.message || 'Failed to borrow book');
+        }
+        }catch(err){
+            console.log(err);
+            alert("error borrowing book");
+        }
+    }
+
     }
 
     }
