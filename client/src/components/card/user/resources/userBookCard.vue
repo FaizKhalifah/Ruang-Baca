@@ -12,7 +12,7 @@
                 <p class="bookPublisher">{{ book.publisher }}</p>
                 <p class="bookIsbn">ISBN : {{ book.isbn }}</p>
                 </div>
-                <button v-if="!book.isBorrowed" @click="borrowBook(book._id)">Borrow</button>
+                <button v-if="!book.isBorrowed" @click="borrowBook(book.id)">Borrow</button>
                 <span v-else>Already Borrowed</span>
             </div>
         </div>
@@ -89,6 +89,7 @@
 </style>
 
 <script>
+    import {jwtDecode} from "jwt-decode"
     import baseCard from '@/components/base/baseCard.vue';
     export default{
         name:"userBookCardComponent",
@@ -105,6 +106,14 @@
     console.log(this.books);
   },
   methods: {
+    async getUserId(){
+        const token = localStorage.getItem('token');
+        if(!token){
+            return null;
+        }
+        const decoded = jwtDecode(token);
+        console.log(decoded);
+    },
     async fetchBooks() {
       const response = await fetch('http://localhost:3000/books', {
         headers: {
@@ -114,6 +123,7 @@
       this.books = await response.json();
     },
     async borrowBook(bookId){
+        this.getUserId();
         try{
             const response = await fetch('http://localhost:3000/books/borrow', {
             method: 'POST',
@@ -121,7 +131,7 @@
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({ userId: this.userId, bookId })
+            body: JSON.stringify({ userId: this.getUserId, bookId })
         });
         console.log(response);
         const data = await response.json();
