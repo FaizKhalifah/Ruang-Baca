@@ -1,5 +1,6 @@
 import Book from "../../models/book.js";
 import Loan from "../../models/loan.js";
+import User from "../../models/user.js";
 async function getBookById(req,res) {
     try{
         const book = await Book.findById(req.params.id);
@@ -27,7 +28,6 @@ async function getAllBooks(req,res) {
 async function loanBook(req,res) {
     try {
         const { userId, bookId } = req.body;
-    
         // Pastikan buku tersedia untuk dipinjam
         const book = await Book.findById(bookId);
         if (!book) return res.status(404).json({ message: 'Book not found' });
@@ -48,11 +48,16 @@ async function loanBook(req,res) {
 
 async function returnBook(req,res) {
     try{
-        const {loanId} = req.body;
+        const {userId, loanId} = req.body;
         const loan = await Loan.findById(loanId);
         if (!loan || loan.status === 'returned') {
             return res.status(400).json({ message: 'Invalid loan record' });
           }
+        const user = await User.findById(userId);
+        console.log(user);
+        if(user.id!=loan.userId){
+            return res.status(400).json({ message: 'Invalid user record on loan transaction' });
+        }
         loan.status = 'returned';
         loan.returnDate = Date.now();
         await loan.save();
