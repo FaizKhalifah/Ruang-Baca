@@ -12,8 +12,8 @@
                 <p class="bookPublisher">{{ book.publisher }}</p>
                 <p class="bookIsbn">ISBN : {{ book.isbn }}</p>
                 </div>
-                <button v-if="!book.isBorrowed" @click="borrowBook(book.id)">Borrow</button>
-                <span v-else>Already Borrowed</span>
+                <button v-if="!book.isBorrowed" @click="borrowBook(book._id)">Borrow</button>
+                <button v-else @click="returnBook(book._id)">Return</button>
             </div>
         </div>
     </baseCard>
@@ -112,7 +112,7 @@
             return null;
         }
         const decoded = jwtDecode(token);
-        console.log(decoded);
+        return decoded;
     },
     async fetchBooks() {
       const response = await fetch('http://localhost:3000/books', {
@@ -120,10 +120,19 @@
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       });
+      console.log(this.books)
       this.books = await response.json();
     },
     async borrowBook(bookId){
-        this.getUserId();
+        const user = await this.getUserId();
+        const userId = user.id;
+        console.log("user : " + user);
+        console.log("id user : " + user["id"]);
+        console.log("id buku : " + bookId)
+        const request = {
+            userId:userId,
+            bookId:bookId
+        }
         try{
             const response = await fetch('http://localhost:3000/books/borrow', {
             method: 'POST',
@@ -131,10 +140,11 @@
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${localStorage.getItem('token')}`
             },
-            body: JSON.stringify({ userId: this.getUserId, bookId })
+            body: JSON.stringify(request)
         });
         console.log(response);
         const data = await response.json();
+        console.log(data);
         if (response.ok) {
             alert('Book borrowed successfully!');
         } else {
@@ -144,6 +154,9 @@
             console.log(err);
             alert("error borrowing book");
         }
+    },
+    async returnBook(bookId){
+        console.log(bookId);
     }
 
     }
