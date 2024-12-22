@@ -8,6 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed-user": "node database/seed/userSeeder.js",
     "clear-user": "node database/migrations/clearUser.js",
+    "seed-book": "node database/seed/bookSeeder.js",
+    "clear-book" :"node database/migrations/clearBook.js" ,
     "serve": "node index.js"
   },
   "author": "faiz",

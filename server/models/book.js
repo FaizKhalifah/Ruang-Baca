@@ -18,13 +18,19 @@ const bookSchema = new Schema({
         type:String,
         required:true
     },
+    status:{
+        type:String,
+        enum: ['borrowed', 'free'], 
+        default: 'free'
+    },
     isbn:{
         type:String,
         unique:true,
         required:true
     },
     imagePath:{
-        type:String
+        type:String,
+        default:"/uploads/default.jpg"
     }
 })
 

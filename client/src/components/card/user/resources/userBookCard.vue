@@ -13,7 +13,7 @@
                 <p class="bookIsbn">ISBN : {{ book.isbn }}</p>
                 </div>
                 <button v-if="!book.isBorrowed" @click="borrowBook(book._id)">Borrow</button>
-                <button v-else @click="returnBook(book._id)">Return</button>
+                <span v-else>Already Borrowed</span>
             </div>
         </div>
     </baseCard>
@@ -45,6 +45,7 @@
     .imageDiv{
         height: 50%;
         width: auto;
+        margin: 0rem 2rem;
     }
 
     .bookItem img{

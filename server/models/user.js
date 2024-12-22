@@ -20,9 +20,18 @@ const userSchema = new Schema({
         enum: ['user', 'admin', 'member'],
         default: 'user',
       },
-      NIM: { type: String, required: function() { return this.role === 'member'; }},
-      faculty: { type: String, required: function() { return this.role === 'member'; }},
-      department: { type: String, required: function() { return this.role === 'member'; }},
+      books:{
+        type:Array,
+        default:[]
+      },
+      journals:{
+        type:Array,
+        default:[]
+      },
+      loanHistory:{
+        type:Array,
+        default:[]
+      }
 });
 
 const User = mongoose.model('User',userSchema);
