@@ -28,10 +28,7 @@ const userSchema = new Schema({
         type:Array,
         default:[]
       },
-      loanHistory:{
-        type:Array,
-        default:[]
-      }
+      loanHistory:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Loan' }],
 });
 
 const User = mongoose.model('User',userSchema);
