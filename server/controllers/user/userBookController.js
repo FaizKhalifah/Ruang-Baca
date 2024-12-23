@@ -35,10 +35,20 @@ async function loanBook(req,res) {
         // Periksa apakah buku sudah dipinjam
         const existingLoan = await Loan.findOne({ bookId, status: 'borrowed' });
         if (existingLoan) return res.status(400).json({ message: 'Book is already borrowed' });
-    
+
+        const user = await User.findById(userId);
+        if(!user){
+            return res.status(400).json({message:"user not found"});
+        }
+        
         // Buat catatan peminjaman
         const loan = new Loan({ userId, bookId });
         await loan.save();
+
+        user.loanHistory.push(loan);
+        await user.save();
+     
+
     
         res.status(201).json({ message: 'Book borrowed successfully', loan });
       } catch (err) {
@@ -58,6 +68,7 @@ async function returnBook(req,res) {
         if(user.id!=loan.userId){
             return res.status(400).json({ message: 'Invalid user record on loan transaction' });
         }
+
         loan.status = 'returned';
         loan.returnDate = Date.now();
         await loan.save();
@@ -67,6 +78,22 @@ async function returnBook(req,res) {
         return res.json({"msg":"error returning book"})
     }
 }
+
+async function getLoanHistory(req,res) {
+    try{
+        const {userId} = req.body;
+        console.log(userId);
+        if(!userId){
+            return res.status(400).json({"message" : "user id is required"});
+        }
+        const loanHistory = await Loan.find({userId});
+        console.log("loan history : " + loanHistory);
+        return res.status(201).json(loanHistory);
+
+    }catch(err){
+        return res.status(400).json({"mesg": "error fetching your loan history"})
+    }
+}
 export default{
-    getBookById, getAllBooks,loanBook,returnBook
+    getBookById, getAllBooks,loanBook,returnBook, getLoanHistory
 }
