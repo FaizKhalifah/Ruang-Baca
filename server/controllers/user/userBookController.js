@@ -47,6 +47,8 @@ async function loanBook(req,res) {
 
         user.loanHistory.push(loan);
         await user.save();
+        
+        await Book.findByIdAndUpdate(bookId, { status: 'borrowed' });
      
 
     

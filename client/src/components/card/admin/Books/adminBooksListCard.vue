@@ -9,6 +9,7 @@
           <th>Published Year</th>
           <th>Publisher</th>
           <th>ISBN</th>
+          <th>Status</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -22,6 +23,7 @@
           <td>{{ book.publishedYear }}</td>
           <td>{{ book.publisher }}</td>
           <td>{{ book.isbn }}</td>
+          <td>{{ book.status }}</td>
           <td>
             <button @click="editBook(book._id)" class="editButton">Edit</button>
             <button @click="deleteBook(book._id)"  class="deleteButton">Delete</button>
