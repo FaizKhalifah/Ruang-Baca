@@ -12,7 +12,7 @@
                 <p class="bookPublisher">{{ book.publisher }}</p>
                 <p class="bookIsbn">ISBN : {{ book.isbn }}</p>
                 </div>
-                <button v-if="!book.isBorrowed" @click="borrowBook(book._id)">Borrow</button>
+                <button v-if="book.status === 'free'" @click="borrowBook(book._id)">Borrow</button>
                 <span v-else>Already Borrowed</span>
             </div>
         </div>
