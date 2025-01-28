@@ -4,7 +4,7 @@
       <li>Ruang Baca</li>
       <div class="navlists">
         <router-link to="/admin/dashboard">Profile</router-link>
-        <router-link to="/admin/dashboard">Layanan</router-link>
+        <router-link to="/services">Layanan</router-link>
 
         <!-- Dropdown untuk Resources -->
         <div class="dropdown">
